@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="employee.EmployeeControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2014-08-28T07:08:29" hostname="Haiyangs-MacBook-Pro.local" time="0.509">
+  <properties/>
+  <testcase name="test_get_employee_count_should_return_10" classname="employee.EmployeeControllerTest" time="0.473"/>
+  <testcase name="test_save_should_return_true_without_exception" classname="employee.EmployeeControllerTest" time="0.027"/>
+  <testcase name="test_save_should_return_false_with_exception" classname="employee.EmployeeControllerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

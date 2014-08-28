@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="employee.EmployeeServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2014-08-28T07:08:30" hostname="Haiyangs-MacBook-Pro.local" time="0.234">
+  <properties/>
+  <testcase name="test_get_count_should_return_10" classname="employee.EmployeeServiceImplTest" time="0.127"/>
+  <testcase name="test_give_increment_should_return_true_without_exception" classname="employee.EmployeeServiceImplTest" time="0.012"/>
+  <testcase name="test_give_increment_should_return_false_with_exception" classname="employee.EmployeeServiceImplTest" time="0.006"/>
+  <testcase name="test_save_should_create_when_employee_is_new" classname="employee.EmployeeServiceImplTest" time="0.056"/>
+  <testcase name="test_save_should_update_when_employee_is_not_new" classname="employee.EmployeeServiceImplTest" time="0.003"/>
+  <testcase name="test_create_new_should_return_1" classname="employee.EmployeeServiceImplTest" time="0.025"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
