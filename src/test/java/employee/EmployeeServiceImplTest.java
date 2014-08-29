@@ -36,7 +36,7 @@ public class EmployeeServiceImplTest {
     public void test_get_count_should_return_10() {
         when(Employee.getCount()).thenReturn(10);
 
-        assertThat(employeeService.getCount(), is(10));
+        assertThat(employeeService.getCount(), is(11));
     }
 
 
@@ -84,8 +84,8 @@ public class EmployeeServiceImplTest {
         employeeServiceSpy.save(employee);
 
         InOrder inOrder = Mockito.inOrder(employee);
-        inOrder.verify(employee, never()).update();
         inOrder.verify(employee).isNew();
+        inOrder.verify(employee, never()).update();
 
         verifyPrivate(employeeServiceSpy).invoke(CREATE_NEW, employee);
         verifyPrivate(employeeServiceSpy).invoke("handleId", id);

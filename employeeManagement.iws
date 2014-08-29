@@ -67,7 +67,7 @@
       <file leaf-file-name="EmployeeServiceImplTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/employee/EmployeeServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="40" selection-start="2748" selection-end="2748" vertical-scroll-proportion="0.61969906" vertical-offset="896" max-vertical-offset="2489">
+            <state line="38" column="52" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.25581396" vertical-offset="231" max-vertical-offset="2489">
               <folding />
             </state>
           </provider>
@@ -959,7 +959,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/employee/EmployeeServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="40" selection-start="2748" selection-end="2748" vertical-scroll-proportion="0.61969906" vertical-offset="896" max-vertical-offset="2489">
+        <state line="38" column="52" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.25581396" vertical-offset="231" max-vertical-offset="2489">
           <folding />
         </state>
       </provider>
