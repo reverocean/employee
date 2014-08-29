@@ -112,7 +112,7 @@ public class EmployeeServiceImplTest {
         mockGenerateId(1);
         mockWelcomeEmail(1);
 
-        int result = Whitebox.invokeMethod(employeeService, CREATE_NEW, employee);
+        Integer result = Whitebox.invokeMethod(employeeService, CREATE_NEW, employee);
 
         assertThat(result, is(1));
     }
