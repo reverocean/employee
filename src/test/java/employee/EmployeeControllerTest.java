@@ -22,13 +22,13 @@ public class EmployeeControllerTest {
     private EmployeeController employeeController;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         employeeService = mock(EmployeeService.class);
         employeeController = new EmployeeController(employeeService);
     }
 
     @Test
-    public void test_get_employee_count_should_return_10() throws Exception {
+    public void test_get_employee_count_should_return_10() {
         when(employeeService.getCount()).thenReturn(10);
 
         assertThat(employeeController.getEmployeeCount(), is(10));
@@ -36,7 +36,7 @@ public class EmployeeControllerTest {
 
 
     @Test
-    public void test_save_should_return_true_without_exception() throws Exception {
+    public void test_save_should_return_true_without_exception() {
         Employee employee = mock(Employee.class);
         doNothing().when(employeeService).save(employee);
 
@@ -48,7 +48,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void test_save_should_return_false_with_exception() throws Exception {
+    public void test_save_should_return_false_with_exception() {
         Employee employee =  mock(Employee.class);
         doThrow(new RuntimeException()).when(employeeService).save(employee);
 

@@ -1,6 +1,8 @@
 package employee;
 
 public class EmployeeController {
+    private static employee.Logger LOGGER = new employee.Logger();
+
     private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
@@ -17,6 +19,7 @@ public class EmployeeController {
             employeeService.save(employee);
             return true;
         } catch (Exception e) {
+            LOGGER.info(e.getMessage(), e);
             return false;
         }
     }

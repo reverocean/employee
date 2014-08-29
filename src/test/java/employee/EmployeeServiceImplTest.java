@@ -24,15 +24,16 @@ import static org.powermock.api.mockito.PowerMockito.*;
 public class EmployeeServiceImplTest {
 
     private EmployeeService employeeService;
+    public static final String CREATE_NEW = "createNew";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockStatic(Employee.class);
         employeeService = new EmployeeServiceImpl();
     }
 
     @Test
-    public void test_get_count_should_return_10() throws Exception {
+    public void test_get_count_should_return_10() {
         when(Employee.getCount()).thenReturn(10);
 
         assertThat(employeeService.getCount(), is(10));
@@ -40,7 +41,7 @@ public class EmployeeServiceImplTest {
 
 
     @Test
-    public void test_give_increment_should_return_true_without_exception() throws Exception {
+    public void test_give_increment_should_return_true_without_exception() {
         doNothing().when(Employee.class);
         Employee.increment();
 
@@ -53,7 +54,7 @@ public class EmployeeServiceImplTest {
 
 
     @Test
-    public void test_give_increment_should_return_false_with_exception() throws Exception {
+    public void test_give_increment_should_return_false_with_exception() {
         doThrow(new RuntimeException()).when(Employee.class);
         Employee.increment();
 
@@ -73,7 +74,7 @@ public class EmployeeServiceImplTest {
 
         EmployeeServiceImpl employeeServiceSpy = PowerMockito.spy(new EmployeeServiceImpl());
 
-        Method createNewMethod = method(EmployeeServiceImpl.class, "createNew", Employee.class);
+        Method createNewMethod = method(EmployeeServiceImpl.class, CREATE_NEW, Employee.class);
         doReturn(id).when(employeeServiceSpy, createNewMethod).withArguments(employee);
 
         Method handleIdMethod = method(EmployeeServiceImpl.class, "handleId", Integer.TYPE);
@@ -83,15 +84,15 @@ public class EmployeeServiceImplTest {
         employeeServiceSpy.save(employee);
 
         InOrder inOrder = Mockito.inOrder(employee);
-        inOrder.verify(employee).isNew();
         inOrder.verify(employee, never()).update();
+        inOrder.verify(employee).isNew();
 
-        verifyPrivate(employeeServiceSpy).invoke("createNew", employee);
+        verifyPrivate(employeeServiceSpy).invoke(CREATE_NEW, employee);
         verifyPrivate(employeeServiceSpy).invoke("handleId", id);
     }
 
     @Test
-    public void test_save_should_update_when_employee_is_not_new() throws Exception {
+    public void test_save_should_update_when_employee_is_not_new() {
         Employee employee = mock(Employee.class);
 
         when(employee.isNew()).thenReturn(false);
@@ -111,7 +112,7 @@ public class EmployeeServiceImplTest {
         mockGenerateId(1);
         mockWelcomeEmail(1);
 
-        int result = Whitebox.invokeMethod(employeeService, "createNew", employee);
+        int result = Whitebox.invokeMethod(employeeService, CREATE_NEW, employee);
 
         assertThat(result, is(1));
     }

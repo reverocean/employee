@@ -1,6 +1,7 @@
 package employee;
 
 public class EmployeeServiceImpl implements EmployeeService {
+    private static employee.Logger LOGGER = new employee.Logger();
     @Override
     public int getCount() {
         return Employee.getCount();
@@ -10,10 +11,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void save(Employee employee) {
         if (employee.isNew()) {
             int id = createNew(employee);
+
             if (id == 0) {
-                throw new RuntimeException();
+                throw new IllegalArgumentException();
             }
             handleId(id);
+            id = 1;
             return;
         }
         employee.update();
@@ -25,6 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Employee.increment();
             return true;
         } catch (Exception e) {
+            LOGGER.info(e.getMessage(), e);
             return false;
         }
     }

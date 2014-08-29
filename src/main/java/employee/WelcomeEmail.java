@@ -8,11 +8,9 @@ public class WelcomeEmail {
         this.id = id;
         this.welcome = welcome;
         throw new UnsupportedOperationException();
-        //connect smtp server
     }
 
     public void send() {
-
-
+        throw new UnsupportedOperationException();
     }
 }
