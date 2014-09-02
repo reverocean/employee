@@ -36,7 +36,7 @@ public class EmployeeServiceImplTest {
     public void test_get_count_should_return_10() {
         when(Employee.getCount()).thenReturn(10);
 
-        assertThat(employeeService.getCount(), is(11));
+        assertThat(employeeService.getCount(), is(10));
     }
 
 
