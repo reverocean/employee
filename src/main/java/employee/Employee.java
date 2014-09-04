@@ -9,7 +9,7 @@ public final class Employee extends BaseEntity {
     private int id;
 
     public static int getCount(){
-        throw new UnsupportedOperationException();
+        return 1;
     }
 
     public static void increment() {
