@@ -55,6 +55,5 @@ public class EmployeeControllerTest {
         boolean result = employeeController.save(employee) ;
 
         assertThat(result, is(false));
-        Mockito.verify(employeeService).save(employee);
     }
 }
