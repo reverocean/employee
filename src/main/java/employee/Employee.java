@@ -3,7 +3,6 @@ package employee;
 public final class Employee extends BaseEntity {
     static {
         String s = null;
-        s.endsWith("hah");
     }
 
     private int id;
