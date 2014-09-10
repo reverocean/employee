@@ -31,7 +31,7 @@ public class EmployeeControllerTest {
     public void test_get_employee_count_should_return_10() {
         when(employeeService.getCount()).thenReturn(10);
 
-        assertThat(employeeController.getEmployeeCount(), is(10));
+        assertThat(employeeController.getEmployeeCount(), is(101));
     }
 
 
