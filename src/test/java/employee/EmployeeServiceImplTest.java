@@ -15,11 +15,12 @@ import java.lang.reflect.Method;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.never;
 import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({EmployeeIdGenerator.class, EmployeeServiceImpl.class})
+@PrepareForTest({EmployeeIdGenerator.class, EmployeeServiceImpl.class, Te2.class})
 @SuppressStaticInitializationFor("employee.Employee")
 public class EmployeeServiceImplTest {
 
@@ -117,10 +118,20 @@ public class EmployeeServiceImplTest {
         assertThat(result, is(1));
     }
 
+    @Test
+    public void testName() throws Exception {
+        Te te = mock(Te.class);
+        whenNew(Te.class).withArguments(1, "name").thenReturn(te);
+        Te2 te2 = new Te2();
+        Te hah = te2.get(1, "name");
+        assertSame(te, hah);
+    }
+
     private WelcomeEmail mockWelcomeEmail(int id) throws Exception {
         WelcomeEmail welcomeEmail = mock(WelcomeEmail.class);
         whenNew(WelcomeEmail.class).withArguments(id, "Welcome").thenReturn(welcomeEmail);
         doNothing().when(welcomeEmail).send();
+
         return welcomeEmail;
     }
 
