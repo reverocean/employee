@@ -3,6 +3,8 @@ package employee;
 public final class Employee extends BaseEntity {
     static {
         String s = null;
+        s= "";
+        s.charAt(0);
     }
 
 
