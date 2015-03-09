@@ -1,0 +1,125 @@
+ext {
+    findDependenciesDirPath = project.buildDir.absolutePath + "/tmp/findDependencies/"
+    excludePackages = [
+            "employee",
+            "atc"
+    ]
+    jars = new HashSet<String>()
+}
+
+task generateJarIndex {
+    def findDependenciesDir = new File(findDependenciesDirPath)
+    findDependenciesDir.deleteOnExit();
+    findDependenciesDir.mkdirs()
+}
+
+generateJarIndex << {
+    sourceSets.main.compileClasspath.each { jarFile ->
+        generateIndex(jarFile)
+    }
+
+    sourceSets.test.compileClasspath.each { jarFile ->
+        generateIndex(jarFile)
+    }
+}
+
+
+task findDependencies << {
+    sourceSets.main.java.each { javaFile ->
+        findDependenciesByFile(javaFile)
+    }
+
+    sourceSets.test.java.each { javaFile ->
+        findDependenciesByFile(javaFile)
+    }
+
+    def dependenciesFile = file(project.buildDir.absolutePath + "/dependencies.txt")
+    dependenciesFile.text = ""
+    dependenciesFile.createNewFile()
+    jars.each {
+        dependenciesFile.append(it + "\n")
+    }
+
+}
+
+def findDependenciesByFile(javaFile) {
+    file(javaFile).eachLine { code ->
+        if (code.startsWith("import")) {
+            def importClass = code.replace("import ", "").replace(";", "")
+            if (importClass.contains("static")) {
+                importClass = importClass.replace("static ", "")
+                importClass = importClass.substring(0, importClass.lastIndexOf('.'))
+            }
+
+            if (!importClass.startsWith("java")) {
+                def hasExcludePackages = excludePackages.any { excludePackage ->
+                    importClass.startsWith(excludePackage)
+                }
+                if (!hasExcludePackages) {
+                    jars.add(file(findDependenciesDirPath + importClass).text)
+                }
+            }
+        }
+    }
+}
+
+def generateIndex(jarFile) {
+    if (!jarFile.name.endsWith('.jar')) {
+        return
+    }
+    def classes = zipTree jarFile
+    classes.each { classFile ->
+        if (classFile.name.endsWith('.class')) {
+            def filePathNames = classFile.absolutePath.split('/')
+            def className = getClassName(filePathNames)
+
+            def jarFilePath = filePathNames.find { filePathName ->
+                return filePathName.contains('.jar')
+            }
+
+
+            def jarFileName = jarFilePath.substring(0, jarFilePath.indexOf('.jar')) + ".jar"
+
+            writeMappingFile(className, jarFileName)
+
+            if (!className.contains('*') && className.contains('.')) {
+                className = className.substring(0, className.lastIndexOf('.')) + ".*"
+                writeMappingFile(className, jarFileName)
+            }
+        }
+    }
+}
+
+def writeMappingFile(className, jarFileName) {
+    def classNameJarMappingFile = file(rootProject.buildDir.absolutePath + "/tmp/findDependencies/" + className)
+
+    if (!classNameJarMappingFile.exists()) {
+        classNameJarMappingFile.text = jarFileName
+    }
+}
+
+def getClassName(filePathNames) {
+
+    def noNameClassPattern = /\d+\.class/
+
+    def jarFilePathIndex = filePathNames.findIndexOf { filePathName ->
+        return filePathName.contains('jar')
+    }
+    def className = filePathNames[jarFilePathIndex + 1..filePathNames.length - 1].join('.')
+
+    def noNameClassMatches = className =~ noNameClassPattern
+
+    if (noNameClassMatches.size()) {
+        className = className.replace('$' + noNameClassMatches[0], "")
+    }
+
+    if (className.lastIndexOf('.class') > 0) {
+        className = className.substring(0, className.lastIndexOf('.class'))
+    }
+
+    if (className.contains('$')) {
+        className = className.replace('$', ".")
+    }
+    className = className.replace('package-info', '*')
+    return className
+}
