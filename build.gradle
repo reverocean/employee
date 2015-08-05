@@ -1,31 +1,14 @@
 
-buildscript {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-    dependencies {
-        classpath 'net.saliman:gradle-cobertura-plugin:2.2.5-SNAPSHOT'
-    }
-}
+
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-apply plugin: 'findbugs'
-
-apply plugin: 'cobertura'
 
 repositories {
     mavenCentral()
 }
 
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
 
 dependencies {
 
@@ -41,8 +24,4 @@ dependencies {
     testCompile('org.mockito:mockito-all:1.9.5'){
         exclude module: 'hamcrest-core'
     }
-}
-
-cobertura {
-   coverageFormats = ['xml']
 }
